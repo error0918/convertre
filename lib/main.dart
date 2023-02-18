@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'color_schemes.dart';
 
 void main() => runApp(const ConvertreApp());
 
@@ -8,11 +9,16 @@ class ConvertreApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Convertre',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+          useMaterial3: true,
+          colorScheme: lightColorScheme
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      darkTheme: ThemeData(
+          useMaterial3: true,
+          colorScheme: darkColorScheme
+      ),
+      home: const MyHomePage(title: 'Convertre'),
     );
   }
 }
