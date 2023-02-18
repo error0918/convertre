@@ -12,10 +12,7 @@ class ConvertreApp extends StatefulWidget {
 }
 
 class _ConvertreAppSate extends State<ConvertreApp> {
-  final textEditingController = TextEditingController();
-  final _dropDownList = ["km", "m", "cm", "mm"];
   bool _darkMode = false;
-  String? _dropDownValue;
 
   @override
   Widget build(BuildContext context) {
@@ -48,65 +45,7 @@ class _ConvertreAppSate extends State<ConvertreApp> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              Row(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Theme.of(context).unselectedWidgetColor,
-                          width: 1
-                        ),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                          left: 15,
-                          right: 15,
-                          top: 5,
-                          bottom: 5
-                        ),
-                        child: DropdownButton(
-                          value: _dropDownValue,
-                          items: _dropDownList.map((String item) {
-                            return DropdownMenuItem<String>(
-                              value: item,
-                              child: Text(item),
-                            );
-                          }).toList(),
-                          onChanged: (dynamic value) {
-                            setState(() {
-                              _dropDownValue = value;
-                            });
-                          },
-                          icon: Expanded(
-                            child: Container(
-                              alignment: Alignment.centerRight,
-                              child: const Icon(
-                                Icons.arrow_circle_down_rounded
-                              ),
-                            ),
-                          ),
-                          hint: const Text("단위를 선택해주세요"),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                      ),
-                    )
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    flex: 2,
-                    child: TextField(
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "변환할 단위 입력",
-                      ),
-                      controller: textEditingController,
-                    ),
-                  ),
-                ],
-              ),
+              const SelectUnitWidget(),
               const SizedBox(height: 10),
               Container(
                 width: 70,
@@ -114,6 +53,7 @@ class _ConvertreAppSate extends State<ConvertreApp> {
                 color: Colors.red
               ),
               const SizedBox(height: 10),
+              const SelectUnitWidget(),
             ],
           ),
         ),
@@ -130,8 +70,71 @@ class SelectUnitWidget extends StatefulWidget {
 }
 
 class _SelectUnitWidgetState extends State<SelectUnitWidget> {
+  final textEditingController = TextEditingController();
+  final _dropDownList = ["km", "m", "cm", "mm"];
+  String? _dropDownValue;
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return
+      Row(
+        children: [
+          Expanded(
+              flex: 1,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                      color: Theme.of(context).unselectedWidgetColor,
+                      width: 1
+                  ),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 15,
+                      right: 15,
+                      top: 5,
+                      bottom: 5
+                  ),
+                  child: DropdownButton(
+                    value: _dropDownValue,
+                    items: _dropDownList.map((String item) {
+                      return DropdownMenuItem<String>(
+                        value: item,
+                        child: Text(item),
+                      );
+                    }).toList(),
+                    onChanged: (dynamic value) {
+                      setState(() {
+                        _dropDownValue = value;
+                      });
+                    },
+                    icon: Expanded(
+                      child: Container(
+                        alignment: Alignment.centerRight,
+                        child: const Icon(
+                            Icons.arrow_circle_down_rounded
+                        ),
+                      ),
+                    ),
+                    hint: const Text("단위를 선택해주세요"),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                ),
+              )
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            flex: 2,
+            child: TextField(
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: "변환할 단위 입력",
+              ),
+              controller: textEditingController,
+            ),
+          ),
+        ],
+      );
   }
 }
