@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'color_schemes.dart';
 
+
 void main() => runApp(const ConvertreApp());
+
 
 class ConvertreApp extends StatefulWidget {
   const ConvertreApp({super.key});
-
   @override
   State<ConvertreApp> createState() => _ConvertreAppSate();
 }
 
 class _ConvertreAppSate extends State<ConvertreApp> {
   final textEditingController = TextEditingController();
-  final _dropDownList = ["S1", "S2", "S3", "S4"];
+  final _dropDownList = ["km", "m", "cm", "mm"];
   bool _darkMode = false;
   String? _dropDownValue;
 
@@ -54,7 +55,7 @@ class _ConvertreAppSate extends State<ConvertreApp> {
                     child: DecoratedBox(
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: Colors.black26,
+                          color: Theme.of(context).unselectedWidgetColor,
                           width: 1
                         ),
                         borderRadius: BorderRadius.circular(5),
@@ -105,11 +106,32 @@ class _ConvertreAppSate extends State<ConvertreApp> {
                     ),
                   ),
                 ],
-              )
+              ),
+              const SizedBox(height: 10),
+              Container(
+                width: 70,
+                height: 70,
+                color: Colors.red
+              ),
+              const SizedBox(height: 10),
             ],
           ),
         ),
       ),
     );
+  }
+}
+
+
+class SelectUnitWidget extends StatefulWidget {
+  const SelectUnitWidget({super.key});
+  @override
+  State<SelectUnitWidget> createState() => _SelectUnitWidgetState();
+}
+
+class _SelectUnitWidgetState extends State<SelectUnitWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
