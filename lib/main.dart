@@ -3,8 +3,22 @@ import 'color_schemes.dart';
 
 void main() => runApp(const ConvertreApp());
 
-class ConvertreApp extends StatelessWidget {
+class ConvertreApp extends StatefulWidget {
   const ConvertreApp({super.key});
+
+  @override
+  State<ConvertreApp> createState() => _ConvertreAppSate();
+}
+
+class _ConvertreAppSate extends State<ConvertreApp> {
+  final textEditingController = TextEditingController();
+  var _darkMode = false;
+
+  void _changeDarkMode(bool darkMode) {
+    setState(() {
+      _darkMode = darkMode;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,54 +32,44 @@ class ConvertreApp extends StatelessWidget {
           useMaterial3: true,
           colorScheme: darkColorScheme
       ),
-      home: const MyHomePage(title: 'Convertre'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+      themeMode: _darkMode? ThemeMode.dark : ThemeMode.light,
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text("Convertre"),
+          actions: [
+            Switch(
+                value: _darkMode,
+                onChanged: _changeDarkMode
+            )
           ],
         ),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  const Expanded(
+                    flex: 1,
+                    child: Text("TEST")
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    flex: 2,
+                    child: TextField(
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "변환할 단위 입력",
+                      ),
+                      controller: textEditingController,
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
