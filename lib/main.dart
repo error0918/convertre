@@ -12,13 +12,9 @@ class ConvertreApp extends StatefulWidget {
 
 class _ConvertreAppSate extends State<ConvertreApp> {
   final textEditingController = TextEditingController();
-  var _darkMode = false;
-
-  void _changeDarkMode(bool darkMode) {
-    setState(() {
-      _darkMode = darkMode;
-    });
-  }
+  final _dropDownList = ["S1", "S2", "S3", "S4"];
+  bool _darkMode = false;
+  String? _dropDownValue;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +35,11 @@ class _ConvertreAppSate extends State<ConvertreApp> {
           actions: [
             Switch(
                 value: _darkMode,
-                onChanged: _changeDarkMode
+                onChanged: (bool darkMode) {
+                  setState(() {
+                    _darkMode = darkMode;
+                  });
+                },
             )
           ],
         ),
@@ -49,9 +49,49 @@ class _ConvertreAppSate extends State<ConvertreApp> {
             children: [
               Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     flex: 1,
-                    child: Text("TEST")
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.black26,
+                          width: 1
+                        ),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          left: 15,
+                          right: 15,
+                          top: 5,
+                          bottom: 5
+                        ),
+                        child: DropdownButton(
+                          value: _dropDownValue,
+                          items: _dropDownList.map((String item) {
+                            return DropdownMenuItem<String>(
+                              value: item,
+                              child: Text(item),
+                            );
+                          }).toList(),
+                          onChanged: (dynamic value) {
+                            setState(() {
+                              _dropDownValue = value;
+                            });
+                          },
+                          icon: Expanded(
+                            child: Container(
+                              alignment: Alignment.centerRight,
+                              child: const Icon(
+                                Icons.arrow_circle_down_rounded
+                              ),
+                            ),
+                          ),
+                          hint: const Text("단위를 선택해주세요"),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                      ),
+                    )
                   ),
                   const SizedBox(width: 10),
                   Expanded(
